@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/services/auth.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  final AuthService _auth = AuthService();
+
   bool _switch = true;
   CSWidgetStyle brightnessStyle = const CSWidgetStyle(
       icon: const Icon(Icons.brightness_medium, color: Colors.black54));
@@ -98,7 +101,14 @@ class _SettingsState extends State<Settings> {
                 onPressed: () {
                   Navigator.push(context,
                       CupertinoPageRoute(builder: (context) => DeliveryForm()));
-                })
+                }),
+            CSLink(
+                title: 'Logout',
+                trailing: Icon(CupertinoIcons.chevron_right),
+                onPressed: () async {
+                  await _auth.signOut();
+                  Navigator.of(context).pop();
+                }),
           ],
         ));
   }

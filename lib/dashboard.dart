@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/services/auth.dart';
 import 'package:hottakes1/settings.dart';
 import 'streaks.dart';
 import 'prizes.dart';
