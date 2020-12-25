@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/dashboard.dart';
+import 'package:hottakes1/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:hottakes1/models/user.dart';
-import 'package:hottakes1/screens/authenticate/authenticate.dart';
 import 'package:hottakes1/login.dart';
 
 class Wrapper extends StatelessWidget {
@@ -14,6 +14,10 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Login();
     } else {
+      DatabaseService()
+          .setGameToday(1, 'bucc', 'hea', 'T:224.5', '-4.5', '1-0', '0-1');
+      DatabaseService()
+          .setGameToday(2, 'war', 'buck', 'T:233.0', '-10.0', '0-1', '0-1');
       return Dashboard();
     }
   }

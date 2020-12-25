@@ -33,7 +33,7 @@ class AuthService {
           email: email, password: password);
       User firebaseUser = result.user;
       await DatabaseService(uid: firebaseUser.uid)
-          .updateUserData(username, 'NBA', 'NFL', 0);
+          .updateUserData(firebaseUser.uid, username, 'NBA', 'NFL', 0, 1);
       return _userFromFirebaseUser(firebaseUser);
     } catch (e) {
       print(e.toString);

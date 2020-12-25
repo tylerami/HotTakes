@@ -141,7 +141,7 @@ class _RegisterState extends State<Register> {
                                               email, password, username);
                                           if (result == null) {
                                             setState(() => error =
-                                                'Please enter a valid email and password ');
+                                                'Please enter a valid email and password');
                                           } else {
                                             Navigator.of(context).pop();
                                           }

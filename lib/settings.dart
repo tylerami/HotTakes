@@ -164,8 +164,7 @@ class _LeaguesState extends State<Leagues> {
               CSSelectionItem<int>(text: 'NFL', value: 0),
               CSSelectionItem<int>(text: 'NBA', value: 1),
               CSSelectionItem<int>(text: 'NHL', value: 2),
-              CSSelectionItem<int>(text: 'MLB', value: 3),
-              CSSelectionItem<int>(text: 'MLS', value: 4)
+              CSSelectionItem<int>(text: 'MLB', value: 3)
             ],
             currentSelection: firstIndex,
             onSelected: (index) {
@@ -178,8 +177,7 @@ class _LeaguesState extends State<Leagues> {
               CSSelectionItem<int>(text: 'NFL', value: 0),
               CSSelectionItem<int>(text: 'NBA', value: 1),
               CSSelectionItem<int>(text: 'NHL', value: 2),
-              CSSelectionItem<int>(text: 'MLB', value: 3),
-              CSSelectionItem<int>(text: 'MLS', value: 4)
+              CSSelectionItem<int>(text: 'MLB', value: 3)
             ],
             currentSelection: secondIndex,
             onSelected: (index) {
