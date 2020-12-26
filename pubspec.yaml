@@ -52,18 +52,44 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/brewers.png
   - assets/fireicon.png
-  - assets/jets.png
-  - assets/twins.png
-  - assets/la.png
   - assets/logohor.png
   - assets/fire.svg
-  - assets/denver.png
   - assets/cash.png
   - assets/tickets.png
   - assets/beercard.png
   - assets/merch.png
+  - assets/nba/76e.png
+  - assets/nba/buck.png
+  - assets/nba/bul.png
+  - assets/nba/cav.png
+  - assets/nba/cel.png
+  - assets/nba/cli.png
+  - assets/nba/gri.png
+  - assets/nba/haw.png
+  - assets/nba/hea.png
+  - assets/nba/hor.png
+  - assets/nba/hroc.png
+  - assets/nba/jaz.png
+  - assets/nba/kni.png
+  - assets/nba/lak.png
+  - assets/nba/mag.png
+  - assets/nba/mav.png
+  - assets/nba/net.png
+  - assets/nba/nug.png
+  - assets/nba/pace.png
+  - assets/nba/pel.png
+  - assets/nba/pis.png
+  - assets/nba/rap.png
+  - assets/nba/skin.png
+  - assets/nba/spu.png
+  - assets/nba/sun.png
+  - assets/nba/thu.png
+  - assets/nba/tim.png
+  - assets/nba/tra.png
+  - assets/nba/war.png
+  - assets/nba/wiz.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

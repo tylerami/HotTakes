@@ -25,6 +25,7 @@ class Gamemanager {
 }
 
 class Game {
+  String gameID;
   String team1;
   String team2;
   String odds1;
@@ -32,14 +33,20 @@ class Game {
   String subtitle1;
   String subtitle2;
   int winner;
+  String team1score;
+  String team2score;
 
   Game(
-      {this.team1,
+      {this.gameID,
+      this.team1,
       this.team2,
       this.odds1,
       this.odds2,
       this.subtitle1,
-      this.subtitle2});
+      this.subtitle2,
+      this.team1score,
+      this.team2score,
+      this.winner});
 }
 
 class GamePair {

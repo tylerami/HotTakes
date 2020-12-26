@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/models/user.dart';
 import 'package:hottakes1/services/auth.dart';
+import 'package:hottakes1/services/controlpanel.dart';
+import 'package:provider/provider.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -19,6 +22,7 @@ class _SettingsState extends State<Settings> {
       icon: const Icon(Icons.brightness_medium, color: Colors.black54));
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return CupertinoPageScaffold(
         resizeToAvoidBottomInset: true,
         navigationBar: CupertinoNavigationBar(
@@ -109,6 +113,19 @@ class _SettingsState extends State<Settings> {
                   await _auth.signOut();
                   Navigator.of(context).pop();
                 }),
+            Container(
+                child: user.uid == 'ZFczk4pT3GMU6l8QzswZEC5DHTj2'
+                    ? CSLink(
+                        title: 'Admin Control',
+                        trailing: Icon(CupertinoIcons.chevron_right),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => ControlPanel()));
+                        },
+                      )
+                    : SizedBox())
           ],
         ));
   }

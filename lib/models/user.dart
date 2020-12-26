@@ -14,6 +14,7 @@ class UserData {
   final String date;
   final int game1;
   final int game2;
+  final int currentPick;
 
   UserData(
       {this.uid,
@@ -24,5 +25,6 @@ class UserData {
       this.picksRemaining,
       this.date,
       this.game1,
-      this.game2});
+      this.game2,
+      this.currentPick});
 }
