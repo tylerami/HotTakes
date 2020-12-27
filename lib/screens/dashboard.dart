@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
-import 'package:hottakes1/services/auth.dart';
-import 'package:hottakes1/services/database.dart';
-import 'package:hottakes1/settings.dart';
+import 'package:hottakes1/models/fire_icon_icons.dart';
+import 'package:hottakes1/models/user.dart';
+import 'package:hottakes1/settings/settings.dart';
 import 'streaks.dart';
 import 'prizes.dart';
 import 'homescreen.dart';
-import 'main.dart';
 import 'package:provider/provider.dart';
-import 'models/user.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key key, this.title}) : super(key: key);
@@ -41,7 +38,7 @@ class _DashboardState extends State<Dashboard> {
                         label: 'Streaks',
                       ),
                       BottomNavigationBarItem(
-                        icon: Icon(FireIcon.FireIcon.fire),
+                        icon: Icon(FireIcon.fire),
                         label: 'Takes',
                       ),
                       BottomNavigationBarItem(

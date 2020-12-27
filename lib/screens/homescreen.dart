@@ -1,15 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/models/fire_icon_icons.dart';
+import 'package:hottakes1/models/gamebutton.dart';
+import 'package:hottakes1/models/user.dart';
+import 'package:hottakes1/services/database.dart';
 import 'package:hottakes1/services/gamemanager.dart';
-import 'package:hottakes1/services/logo.dart';
 import 'package:hottakes1/services/teams.dart';
-import 'services/database.dart';
 import 'package:provider/provider.dart';
-import 'models/user.dart';
-import 'models/gamebutton.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -254,7 +252,7 @@ class _HomescreenState extends State<Homescreen> {
                               city: Teams().cityFromInitials(game1.team1),
                               team: Teams().teamFromInitials(game1.team1),
                               subtitle: game1.subtitle1,
-                              logo: Logos().logoFromInitials(game1.team1),
+                              logo: Teams().logoFromInitials(game1.team1),
                               odds: game1.odds1,
                               selected: this._team1status ? true : false,
                               submitted: this._team1submission ? true : false)),
@@ -272,7 +270,7 @@ class _HomescreenState extends State<Homescreen> {
                               city: Teams().cityFromInitials(game1.team2),
                               team: Teams().teamFromInitials(game1.team2),
                               subtitle: game1.subtitle2,
-                              logo: Logos().logoFromInitials(game1.team2),
+                              logo: Teams().logoFromInitials(game1.team2),
                               odds: game1.odds2,
                               selected: this._team2status ? true : false,
                               submitted: this._team2submission ? true : false)),
@@ -294,7 +292,7 @@ class _HomescreenState extends State<Homescreen> {
                               city: Teams().cityFromInitials(game2.team1),
                               team: Teams().teamFromInitials(game2.team1),
                               subtitle: game2.subtitle1,
-                              logo: Logos().logoFromInitials(game2.team1),
+                              logo: Teams().logoFromInitials(game2.team1),
                               odds: game2.odds1,
                               selected: this._team3status ? true : false,
                               submitted: this._team3submission ? true : false)),
@@ -312,7 +310,7 @@ class _HomescreenState extends State<Homescreen> {
                             city: Teams().cityFromInitials(game2.team2),
                             team: Teams().teamFromInitials(game2.team2),
                             subtitle: game2.subtitle2,
-                            logo: Logos().logoFromInitials(game2.team2),
+                            logo: Teams().logoFromInitials(game2.team2),
                             odds: game2.odds2,
                             selected: this._team4status ? true : false,
                             submitted: this._team4submission ? true : false,
@@ -350,7 +348,7 @@ class _HomescreenState extends State<Homescreen> {
                                         fontWeight: FontWeight.w500,
                                         color: Color(0xff272727))),
                                 SizedBox(width: 10),
-                                Icon(FireIcon.FireIcon.fire,
+                                Icon(FireIcon.fire,
                                     size: 30, color: Color(0xff272727))
                               ],
                             ),

@@ -16,6 +16,7 @@ class UserData {
   final int game2;
   final int currentPick;
   final bool notifications;
+  final String streakResetDate;
 
   UserData(
       {this.uid,
@@ -28,5 +29,6 @@ class UserData {
       this.game1,
       this.game2,
       this.currentPick,
-      this.notifications});
+      this.notifications,
+      this.streakResetDate});
 }

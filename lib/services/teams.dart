@@ -1,4 +1,8 @@
 class Teams {
+  String logoFromInitials(String initials) {
+    return 'assets/nba/' + initials + ".png";
+  }
+
   String uncapitalizedTeamFromInitials(String initials) {
     switch (initials) {
       case 'haw':

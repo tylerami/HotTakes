@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hottakes1/dashboard.dart';
+import 'package:hottakes1/authorization/login.dart';
+import 'package:hottakes1/screens/dashboard.dart';
 import 'package:hottakes1/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:hottakes1/models/user.dart';
-import 'package:hottakes1/login.dart';
 
 class Wrapper extends StatelessWidget {
   @override

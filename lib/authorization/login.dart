@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hottakes1/main.dart';
-import 'package:hottakes1/register.dart';
+import 'package:hottakes1/authorization/register.dart';
 import 'package:hottakes1/services/auth.dart';
 
 class Login extends StatefulWidget {

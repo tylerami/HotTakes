@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hottakes1/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/services/auth.dart';
-import 'login.dart';
-import 'settings.dart';
-import 'screens/wrapper.dart';
+import 'package:hottakes1/services/wrapper.dart';
 import 'package:provider/provider.dart';
 import 'models/user.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -30,6 +30,17 @@ class TakeCard extends StatelessWidget {
                 : 2);
   }
 
+  String dateFromTakeCard(TakeCard card1) {
+    return card1.date[0] +
+        card1.date[1] +
+        ' ' +
+        card1.date[3] +
+        card1.date[4] +
+        ' ' +
+        card1.date[6] +
+        card1.date[7];
+  }
+
   bool pickedOnConsecutiveDays(TakeCard card1, TakeCard card2) {
     int year1 = int.parse(card1.date[0] + card1.date[1]);
     int month1 = int.parse(card1.date[3] + card1.date[4]);

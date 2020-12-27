@@ -8,15 +8,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-part 'widgets/button.dart';
-part 'widgets/control.dart';
-part 'widgets/description.dart';
-part 'widgets/header.dart';
-part 'widgets/link.dart';
-part 'widgets/secret.dart';
-part 'widgets/selection.dart';
-part 'widgets/spacer.dart';
-part 'widgets/widget.dart';
+part 'package:hottakes1/widgets/button.dart';
+part 'package:hottakes1/widgets/control.dart';
+part 'package:hottakes1/widgets/description.dart';
+part 'package:hottakes1/widgets/header.dart';
+part 'package:hottakes1/widgets/link.dart';
+part 'package:hottakes1/widgets/secret.dart';
+part 'package:hottakes1/widgets/selection.dart';
+part 'package:hottakes1/widgets/spacer.dart';
+part 'package:hottakes1/widgets/widget.dart';
 
 const double CS_ITEM_HEIGHT = 50.0;
 const EdgeInsets CS_ITEM_PADDING =

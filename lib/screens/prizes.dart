@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/models/fire_icon_icons.dart';
 import 'package:hottakes1/models/user.dart';
 import 'package:hottakes1/services/database.dart';
-import 'package:hottakes1/settings.dart';
+import 'package:hottakes1/settings/deliveryform.dart';
 import 'package:provider/provider.dart';
 
 class PrizeTier extends StatelessWidget {
@@ -53,7 +53,7 @@ class PrizeTier extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: Colors.red[800])),
-                Icon(FireIcon.FireIcon.fire, color: Colors.red[800])
+                Icon(FireIcon.fire, color: Colors.red[800])
               ]),
               SizedBox(height: 200),
               Row(

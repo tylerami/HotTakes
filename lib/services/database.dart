@@ -30,8 +30,13 @@ class DatabaseService {
       'game1': 1,
       'game2': 2,
       'currentPick': 0,
-      'notifications': true
+      'notifications': true,
+      'streakresetdate': ''
     });
+  }
+
+  Future setStreakResetDate(String uid, String date) async {
+    return await userDataCollection.doc(uid).update({'streakresetdate': date});
   }
 
   Future setUserStreak(String uid, int streak) async {
@@ -188,7 +193,8 @@ class DatabaseService {
         game1: doc.data()['game1'],
         game2: doc.data()['game2'],
         currentPick: doc.data()['currentPick'],
-        notifications: doc.data()['notifications']);
+        notifications: doc.data()['notifications'],
+        streakResetDate: doc.data()['streakresetdate']);
   }
 
   Future setGame(
