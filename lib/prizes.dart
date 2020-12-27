@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/fire_icon_icons.dart' as FireIcon;
+import 'package:hottakes1/models/user.dart';
+import 'package:hottakes1/services/database.dart';
+import 'package:hottakes1/settings.dart';
+import 'package:provider/provider.dart';
 
 class PrizeTier extends StatelessWidget {
   PrizeTier(
@@ -98,7 +102,15 @@ class PrizeTier extends StatelessWidget {
                   child: CupertinoButton(
                       padding: EdgeInsets.all(8),
                       borderRadius: BorderRadius.circular(15),
-                      onPressed: this.userWins >= this.wins ? () {} : null,
+                      onPressed: this.userWins >= this.wins
+                          ? () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          DeliveryForm(prizeIndex: wins)));
+                            }
+                          : null,
                       disabledColor: Colors.red[800].withOpacity(0.3),
                       color: Colors.red[800],
                       child: Row(
@@ -137,31 +149,40 @@ class Prizes extends StatefulWidget {
 class _PrizesState extends State<Prizes> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ListView(
-      shrinkWrap: true,
-      children: [
-        PrizeTier(
-            image: 'assets/merch.png',
-            title: 'HOT TAKES\nMUSCLE TEE',
-            wins: 4,
-            userWins: 10),
-        PrizeTier(
-            image: 'assets/beercard.png',
-            title: "\$100 BEERSTORE\nGIFTCARD",
-            wins: 10,
-            userWins: 10),
-        PrizeTier(
-            image: 'assets/tickets.png',
-            title: 'SPORTS TICKETS \n(\$600 VALUE)',
-            wins: 15,
-            userWins: 10),
-        PrizeTier(
-            image: 'assets/cash.png',
-            title: '\$10,000 CASH\n     ',
-            wins: 20,
-            userWins: 10),
-      ],
-    ));
+    final user = Provider.of<MyUser>(context);
+    return StreamProvider<UserData>.value(
+        value: DatabaseService(uid: user.uid).userData,
+        builder: (context, snapshot) {
+          final userData = Provider.of<UserData>(context);
+          if (userData != null) {
+            return Center(
+                child: ListView(
+              shrinkWrap: true,
+              children: [
+                PrizeTier(
+                    image: 'assets/merch.png',
+                    title: 'HOT TAKES\nMUSCLE TEE',
+                    wins: 4,
+                    userWins: userData.streak),
+                PrizeTier(
+                    image: 'assets/beercard.png',
+                    title: "\$100 BEERSTORE\nGIFTCARD",
+                    wins: 10,
+                    userWins: userData.streak),
+                PrizeTier(
+                    image: 'assets/tickets.png',
+                    title: 'SPORTS TICKETS \n(\$600 VALUE)',
+                    wins: 15,
+                    userWins: userData.streak),
+                PrizeTier(
+                    image: 'assets/cash.png',
+                    title: '\$10,000 CASH\n     ',
+                    wins: 20,
+                    userWins: userData.streak),
+              ],
+            ));
+          } else
+            return Container();
+        });
   }
 }

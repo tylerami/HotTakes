@@ -7,6 +7,9 @@ class Teams {
       case 'cel':
         return 'Celtics';
         break;
+      case 'net':
+        return 'Nets';
+        break;
       case 'hor':
         return "Hornets";
         break;
@@ -383,6 +386,9 @@ class Teams {
         break;
       case 'cel':
         return 'Boston';
+        break;
+      case 'net':
+        return 'Brooklyn';
         break;
       case 'hor':
         return "Charlotte";

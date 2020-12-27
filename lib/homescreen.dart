@@ -313,7 +313,7 @@ class _HomescreenState extends State<Homescreen> {
                             team: Teams().teamFromInitials(game2.team2),
                             subtitle: game2.subtitle2,
                             logo: Logos().logoFromInitials(game2.team2),
-                            odds: game2.subtitle2,
+                            odds: game2.odds2,
                             selected: this._team4status ? true : false,
                             submitted: this._team4submission ? true : false,
                           )),

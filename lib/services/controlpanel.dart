@@ -183,7 +183,8 @@ class _ControlPanelState extends State<ControlPanel> {
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 2000), () {
+                                        const Duration(milliseconds: 20000),
+                                        () {
                                       setState(() {
                                         success1 = '';
                                       });
@@ -192,7 +193,8 @@ class _ControlPanelState extends State<ControlPanel> {
                                 }
                               }),
                           Text(success1,
-                              style: GoogleFonts.roboto(color: Colors.green))
+                              style: GoogleFonts.roboto(
+                                  color: Colors.green, fontSize: 12))
                         ],
                       ),
                     ),
@@ -262,7 +264,8 @@ class _ControlPanelState extends State<ControlPanel> {
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 2000), () {
+                                        const Duration(milliseconds: 20000),
+                                        () {
                                       setState(() {
                                         success2 = '';
                                       });
@@ -271,7 +274,8 @@ class _ControlPanelState extends State<ControlPanel> {
                                 }
                               }),
                           Text(success2,
-                              style: GoogleFonts.roboto(color: Colors.green))
+                              style: GoogleFonts.roboto(
+                                  color: Colors.green, fontSize: 12))
                         ],
                       ),
                     ),

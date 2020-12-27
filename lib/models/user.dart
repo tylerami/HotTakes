@@ -15,6 +15,7 @@ class UserData {
   final int game1;
   final int game2;
   final int currentPick;
+  final bool notifications;
 
   UserData(
       {this.uid,
@@ -26,5 +27,6 @@ class UserData {
       this.date,
       this.game1,
       this.game2,
-      this.currentPick});
+      this.currentPick,
+      this.notifications});
 }

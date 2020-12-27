@@ -34,6 +34,8 @@ class AuthService {
       User firebaseUser = result.user;
       await DatabaseService(uid: firebaseUser.uid)
           .updateUserData(firebaseUser.uid, username, 'NBA', 'NFL', 0, 1);
+      await DatabaseService(uid: firebaseUser.uid)
+          .initializeDeliveryInfo(firebaseUser.uid);
       return _userFromFirebaseUser(firebaseUser);
     } catch (e) {
       print(e.toString);

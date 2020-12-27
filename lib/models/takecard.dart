@@ -30,6 +30,48 @@ class TakeCard extends StatelessWidget {
                 : 2);
   }
 
+  bool pickedOnConsecutiveDays(TakeCard card1, TakeCard card2) {
+    int year1 = int.parse(card1.date[0] + card1.date[1]);
+    int month1 = int.parse(card1.date[3] + card1.date[4]);
+    int day1 = int.parse(card1.date[6] + card1.date[7]);
+    int year2 = int.parse(card2.date[0] + card2.date[1]);
+    int month2 = int.parse(card2.date[3] + card2.date[4]);
+    int day2 = int.parse(card2.date[6] + card2.date[7]);
+    //different year true cases
+    if (year1 == year2 - 1 || year1 == year2 + 1) {
+      if (day1 == 31) {
+        if (day2 == 1) return true;
+      } else if (day2 == 31) {
+        if (day1 == 1) {
+          return true;
+        }
+      }
+      //different month true cases
+    } else if ((month1 == month2 - 1 || month1 == month2 + 1) &&
+        (year1 == year2)) {
+      if (day1 == 30 &&
+          (month1 == 9 || month1 == 4 || month1 == 5 || month1 == 11)) {
+        if (day2 == 1) return true;
+      } else if (day2 == 30 &&
+          (month2 == 9 || month2 == 4 || month2 == 5 || month2 == 11)) {
+        if (day1 == 1) {
+          return true;
+        }
+      } else if (day1 == 31) {
+        if (day2 == 1) return true;
+      } else if (day2 == 31) {
+        if (day1 == 1) {
+          return true;
+        }
+      }
+    }
+//different day true cases
+    else if ((day1 == day2 - 1 || day1 == day2 + 1) &&
+        (year1 == year2) &&
+        (month1 == month2)) return true;
+    return false;
+  }
+
   TakeCard(
       {this.date,
       this.pickedTeam,

@@ -12,8 +12,6 @@ class DatabaseService {
 
   final CollectionReference gamesCollection =
       FirebaseFirestore.instance.collection('games');
-  final CollectionReference userPicksCollection =
-      FirebaseFirestore.instance.collection('userPicks');
   final CollectionReference userDataCollection =
       FirebaseFirestore.instance.collection('userData');
   final CollectionReference userDeliveryCollection =
@@ -29,10 +27,15 @@ class DatabaseService {
       'streak': streak,
       'picksRemaining': picksRemaining,
       'date': Gamemanager().getDate(),
-      'game1': '',
-      'game2': ' ',
-      'currentPick': 0
+      'game1': 1,
+      'game2': 2,
+      'currentPick': 0,
+      'notifications': true
     });
+  }
+
+  Future setUserStreak(String uid, int streak) async {
+    return await userDataCollection.doc(uid).update({'streak': streak});
   }
 
   Future submitPick(String uid, String gameID, int team, String pickedTeam,
@@ -132,14 +135,29 @@ class DatabaseService {
     return userDataCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
   }
 
+  Future<bool> isUsernameTaken(String newUsername) async {
+    QuerySnapshot query = await userDataCollection
+        .where('username', isEqualTo: newUsername)
+        .get();
+    List<String> list = [];
+    for (var doc in query.docs.toList()) {
+      if (doc.data()['username'] == newUsername) return true;
+    }
+    return false;
+  }
+
+  Future setUsername(String uid, String username) async {
+    return await userDataCollection.doc(uid).update({'username': username});
+  }
+
   Future updateUserGames(String uid) async {
     DocumentSnapshot snap = await userDataCollection.doc(uid).get();
     UserData userData = _userDataFromSnapshot(snap);
     if (userData.date.toString() != Gamemanager().getDate()) {
-      int game1 = Random().nextInt(2);
+      int game1 = Random().nextInt(2) + 1;
       int game2 = game1;
       while (game1 == game2) {
-        game2 = Random().nextInt(2);
+        game2 = Random().nextInt(2) + 1;
       }
       return await userDataCollection.doc(uid).update({
         'date': Gamemanager().getDate(),
@@ -169,7 +187,8 @@ class DatabaseService {
         date: doc.data()['date'],
         game1: doc.data()['game1'],
         game2: doc.data()['game2'],
-        currentPick: doc.data()['currentPick']);
+        currentPick: doc.data()['currentPick'],
+        notifications: doc.data()['notifications']);
   }
 
   Future setGame(
@@ -275,5 +294,88 @@ class DatabaseService {
         team1score: doc.data()['team1score'],
         team2score: doc.data()['team2score'],
         winner: doc.data()['winner']);
+  }
+
+  Future setLeague1(String uid, int index) async {
+    String league = '';
+    switch (index) {
+      case 0:
+        league = 'NFL';
+        break;
+      case 1:
+        league = 'NBA';
+        break;
+      case 2:
+        league = 'NHL';
+        break;
+      case 3:
+        league = 'MLB';
+        break;
+      default:
+        league = 'NBA';
+        break;
+    }
+    return await userDataCollection.doc(uid).update({'league1': league});
+  }
+
+  Future setLeague2(String uid, int index) async {
+    String league = '';
+    switch (index) {
+      case 0:
+        league = 'NFL';
+        break;
+      case 1:
+        league = 'NBA';
+        break;
+      case 2:
+        league = 'NHL';
+        break;
+      case 3:
+        league = 'MLB';
+        break;
+      default:
+        league = 'NBA';
+        break;
+    }
+    return await userDataCollection.doc(uid).update({'league2': league});
+  }
+
+  Future setNotifications(String uid, bool n) async {
+    return await userDataCollection.doc(uid).update({'notifications': n});
+  }
+
+  Future initializeDeliveryInfo(String uid) async {
+    return await userDeliveryCollection.doc(uid).set({
+      'name': '',
+      'province': '',
+      'city': '',
+      'address': '',
+      'unitnumber': '',
+      'postalcode': ''
+    });
+  }
+
+  Future updateDeliveryInfo(String uid, String name, String province,
+      String city, String address, String unit, String postal) async {
+    return await userDeliveryCollection.doc(uid).update({
+      'name': name,
+      'province': province,
+      'city': city,
+      'address': address,
+      'unitnumber': unit,
+      'postalcode': postal
+    });
+  }
+
+  Stream<DocumentSnapshot> get deliveryInfo {
+    return userDeliveryCollection.doc(uid).snapshots();
+  }
+
+  Future submitPrizeClaim(String uid, String date, int wins) async {
+    return await userDeliveryCollection
+        .doc(uid)
+        .collection('prizes')
+        .doc(date)
+        .set({'wins': wins, 'delivered': false});
   }
 }
