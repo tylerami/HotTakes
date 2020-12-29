@@ -196,7 +196,35 @@ class _LoginState extends State<Login> {
                                     ],
                                   )))),
                       TextButton(
-                          onPressed: null,
+                          onPressed: email == ''
+                              ? () {
+                                  setState(() {
+                                    error = 'Please enter a valid email';
+                                  });
+                                }
+                              : () {
+                                  AuthService().resetPassword(email);
+                                  showCupertinoDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return CupertinoAlertDialog(
+                                          title: Text('Success'),
+                                          content: Text(
+                                              'An email containing a password reset link has been sent to ' +
+                                                  email),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text('Ok',
+                                                    style: TextStyle(
+                                                        color: CupertinoColors
+                                                            .activeBlue)))
+                                          ],
+                                        );
+                                      });
+                                },
                           child: Text("Forgot Password?",
                               style: GoogleFonts.montserrat(
                                   color: Colors.grey[300],

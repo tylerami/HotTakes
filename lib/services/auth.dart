@@ -26,6 +26,14 @@ class AuthService {
     }
   }
 
+  Future<void> resetPassword(String email) async {
+    if (email == null || email == '') {
+      final User user = _auth.currentUser;
+      email = user.email;
+    }
+    await _auth.sendPasswordResetEmail(email: email);
+  }
+
   //register
   Future register(String email, String password, String username) async {
     try {

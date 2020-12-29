@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hottakes1/models/fire_icon_icons.dart';
 import 'package:hottakes1/models/user.dart';
+import 'package:hottakes1/screens/friendspage.dart';
 import 'package:hottakes1/settings/settings.dart';
 import 'streaks.dart';
 import 'prizes.dart';
@@ -16,7 +17,13 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  List<Widget> tabs = [Streaks(), Homescreen(), Prizes(), Settings()];
+  List<Widget> tabs = [
+    Streaks(),
+    Homescreen(),
+    FriendsPage(),
+    Prizes(),
+    Settings()
+  ];
 
   int _currentIndex = 1;
 
@@ -40,6 +47,10 @@ class _DashboardState extends State<Dashboard> {
                       BottomNavigationBarItem(
                         icon: Icon(FireIcon.fire),
                         label: 'Takes',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(CupertinoIcons.person_2_fill),
+                        label: 'Friends',
                       ),
                       BottomNavigationBarItem(
                         icon: Icon(CupertinoIcons.gift),
@@ -142,6 +153,48 @@ class _DashboardState extends State<Dashboard> {
                       );
                       break;
                     case 2:
+                      return CupertinoTabView(
+                        builder: (BuildContext context) =>
+                            CupertinoPageScaffold(
+                          backgroundColor: Color(0xff1A1A1A),
+                          child: FriendsPage(),
+                          navigationBar: CupertinoNavigationBar(
+                              backgroundColor: Color(0xff111111),
+                              middle: Align(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(width: 40),
+                                      Image.asset('assets/logohor.png',
+                                          height: 60),
+                                    ],
+                                  )),
+                              trailing: Padding(
+                                padding: EdgeInsets.all(5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(CupertinoPageRoute<bool>(
+                                            builder: (BuildContext context) =>
+                                                Settings()));
+                                  },
+                                  child: Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: Color(0xff2F2F2F)),
+                                      child: Icon(Icons.settings_sharp,
+                                          color: Colors.white.withOpacity(.6),
+                                          size: 25)),
+                                ),
+                              )),
+                        ),
+                      );
+                      break;
+                    case 3:
                       return CupertinoTabView(
                         builder: (BuildContext context) =>
                             CupertinoPageScaffold(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hottakes1/models/pick.dart';
 import 'package:hottakes1/models/user.dart';
 import 'package:hottakes1/services/database.dart';
@@ -48,12 +49,12 @@ class _TakesListState extends State<TakesList> {
                     if (cardList[cardList.length - 1].pickedRight == 2)
                       on = false;
                     while (on && i <= cardList.length - 1) {
-                      /*if (TakeCard().dateFromTakeCard(
+                      if (TakeCard().dateFromTakeCard(
                               cardList[cardList.length - 1 - i]) ==
                           userData.streakResetDate)
                         on = false;
-                      else */
-                      if (cardList[cardList.length - 1 - i].pickedRight == 1) {
+                      else if (cardList[cardList.length - 1 - i].pickedRight ==
+                          1) {
                         streakList.add(cardList[cardList.length - 1 - i]);
                         counter++;
                         i++;
@@ -77,7 +78,17 @@ class _TakesListState extends State<TakesList> {
                           return Container(
                               child: cardList[cardList.length - 1 - index]);
                         } else
-                          return Container();
+                          return Container(
+                              child: Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              'You currently have no \n takes LOL cmon now',
+                              style: GoogleFonts.oswald(
+                                  color: Colors.white.withOpacity(.95),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18),
+                            ),
+                          ));
                       });
                 });
           } else

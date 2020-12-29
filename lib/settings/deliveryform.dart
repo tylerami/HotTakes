@@ -332,10 +332,12 @@ class _DeliveryFormState extends State<DeliveryForm> {
                                   _streetField.text,
                                   _unitField.text,
                                   _postalField.text);
-                              DatabaseService().submitPrizeClaim(user.uid,
-                                  Gamemanager().getDate(), prizeIndex);
-                              DatabaseService().setStreakResetDate(
-                                  user.uid, Gamemanager().getDate());
+                              if (prizeIndex != 0) {
+                                DatabaseService().submitPrizeClaim(user.uid,
+                                    Gamemanager().getDate(), prizeIndex);
+                                DatabaseService().setStreakResetDate(
+                                    user.uid, Gamemanager().getDate());
+                              }
                               showCupertinoDialog(
                                   context: context,
                                   builder: (context) {

@@ -47,14 +47,35 @@ class PrizeTier extends StatelessWidget {
                   image: AssetImage(this.image), fit: BoxFit.fitWidth)),
           child: Column(
             children: [
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Text(this.wins.toString() + ' WIN STREAK',
-                    style: GoogleFonts.oswald(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.red[800])),
-                Icon(FireIcon.fire, color: Colors.red[800])
-              ]),
+              Container(
+                decoration: BoxDecoration(
+                    color: Color(0xffF7F7F7),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                height: 25,
+                child: Center(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(this.wins.toString() + ' WIN STREAK',
+                            style: GoogleFonts.oswald(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.red[800])),
+                        SizedBox(width: 3),
+                        Icon(FireIcon.fire, color: Colors.red[800], size: 20)
+                      ]),
+                ),
+              ),
+              Container(
+                height: 5,
+                decoration: BoxDecoration(color: Color(0xffF7F7F7)),
+              ),
+              Container(
+                height: 1,
+                decoration: BoxDecoration(color: Colors.red[800]),
+              ),
               SizedBox(height: 200),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,

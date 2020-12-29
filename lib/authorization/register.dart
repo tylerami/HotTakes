@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hottakes1/services/auth.dart';
+import 'package:hottakes1/services/database.dart';
 
 class Register extends StatefulWidget {
   Register({Key key, this.title}) : super(key: key);
@@ -134,7 +135,12 @@ class _RegisterState extends State<Register> {
                                   child: FlatButton(
                                       color: Colors.black.withOpacity(0.00),
                                       onPressed: () async {
-                                        if (_formKey.currentState.validate()) {
+                                        if (await DatabaseService()
+                                            .isUsernameTaken(username)) {
+                                          setState(() =>
+                                              error = 'Username is taken');
+                                        } else if (_formKey.currentState
+                                            .validate()) {
                                           dynamic result = await _auth.register(
                                               email, password, username);
                                           if (result == null) {

@@ -77,7 +77,7 @@ class TakeCard extends StatelessWidget {
       }
     }
 //different day true cases
-    else if ((day1 == day2 - 1 || day1 == day2 + 1) &&
+    else if ((day1 == day2 - 1 || day1 == day2 + 1 || day1 == day2) &&
         (year1 == year2) &&
         (month1 == month2)) return true;
     return false;

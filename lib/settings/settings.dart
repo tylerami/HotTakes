@@ -80,16 +80,68 @@ class _SettingsState extends State<Settings> {
                         ),
                         CSHeader('SECURITY'),
                         CSLink(
-                          title: 'Update password',
-                          trailing: Icon(CupertinoIcons.chevron_right),
-                          onPressed: () {
+                            title: 'Change password',
+                            trailing: Icon(CupertinoIcons.chevron_right),
+                            onPressed: () {
+                              showCupertinoDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CupertinoAlertDialog(
+                                      title: Text('Password Reset'),
+                                      content: Text(
+                                          'Are you sure you want to send a password reset email?'),
+                                      actions: [
+                                        FlatButton(
+                                            onPressed: () {
+                                              AuthService().resetPassword('');
+                                              Navigator.of(context).pop();
+                                              showCupertinoDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return CupertinoAlertDialog(
+                                                      title: Text('Success'),
+                                                      content: Text(
+                                                          'A link to reset your password has been sent to the email associated with this account'),
+                                                      actions: [
+                                                        FlatButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child: Text('Ok',
+                                                                style: TextStyle(
+                                                                    color: CupertinoColors
+                                                                        .activeBlue))),
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                            child: Text('Yes',
+                                                style: TextStyle(
+                                                    color: CupertinoColors
+                                                        .activeBlue))),
+                                        FlatButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('No',
+                                                style: TextStyle(
+                                                    color: CupertinoColors
+                                                        .destructiveRed)))
+                                      ],
+                                    );
+                                  });
+                            }
+                            /*() {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
                                     builder: (context) =>
                                         PasswordForm(isEmailLink: false)));
-                          },
-                        ),
+                          }*/
+
+                            ),
                         CSLink(
                           title: 'Change username',
                           trailing: Icon(CupertinoIcons.chevron_right),

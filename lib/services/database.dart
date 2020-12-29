@@ -70,42 +70,6 @@ class DatabaseService {
         .update({'picksRemaining': currentVal - 1});
   }
 
-  /*Future<TakeCard> _futureTakeCardFromSnapshot(DocumentSnapshot doc) async {
-    String gameID = doc.data()['gameID'];
-    DocumentSnapshot gameDoc = await gamesCollection.doc(gameID).get();
-    String pickedTeam = doc.data()['team'] == 1 ? gameDoc.data()['team1'] : gameDoc.data()['team2'];
-    String opponentTeam = doc.data()['team'] == 1 ? gameDoc.data()['team1'] : gameDoc.data()['team2'];
-    return TakeCard(date: gameID[0] + gameID[1] + '/' + gameID[3] + gameID[4] + '/' + gameID[6] + gameID[7],
-      pickedTeam: Teams().teamFromInitials(pickedTeam),
-      opponentTeam: Teams().teamFromInitials(opponentTeam),
-      pickedTeamScore: doc.data()['team'] == 1 ? gameDoc.data()['team1score'] : gameDoc.data()['team2score'],
-      opponentScore: doc.data()['team'] == 1 ? gameDoc.data()['team1score'] : gameDoc.data()['team2score'],
-      pickedRight: gameDoc.data()['winner'] == 0 ? null : gameDoc.data()['winner'] == doc.data()['team'] ? true : false);
-  }
-
-  Stream<QuerySnapshot> get futureTakeCards {
-    return userDataCollection.doc(uid).collection('picks').snapshots();
-  }
-
-  Future<DocumentSnapshot> getGame(String gameID) async {
-    return await gamesCollection.doc(gameID).get();
-  }
-
-
-  Stream<List<DocumentSnapshot>> get takeSnapshots {
-    List list = [];
-    String date = Gamemanager().getDate();
-    int year = int.parse(date[0] + date[1]);
-    int month = int.parse(date[3] + date[4]);
-    int day = int.parse(date[6] + date[7]);
-    int i = 0;
-    while (i<20){
-      String date = year.toString() + ' ' + month.toString() + ' ' + day.toString(); 
-      QuerySnapshot doc = userDataCollection.doc(uid).collection('picks').where('__name__', arrayContains: date).get();
-      list.add()
-    }
-  }*/
-
   List<Pick> _pickSnapshotsToList(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Pick(
@@ -144,7 +108,6 @@ class DatabaseService {
     QuerySnapshot query = await userDataCollection
         .where('username', isEqualTo: newUsername)
         .get();
-    List<String> list = [];
     for (var doc in query.docs.toList()) {
       if (doc.data()['username'] == newUsername) return true;
     }
@@ -231,17 +194,38 @@ class DatabaseService {
 
   Future setGameAuto(int year, int month, int day, String team1, String team2,
       String odds1, String odds2, String subtitle1, String subtitle2) async {
-    QuerySnapshot games = await gamesCollection
-        .where('gameID', arrayContains: Gamemanager().getDate())
-        .get();
-    List<QueryDocumentSnapshot> gamesList = games.docs.toList();
-    String docID = year.toString() +
-        ' ' +
-        month.toString() +
-        ' ' +
-        day.toString() +
-        ' G' +
-        (gamesList.length + 1).toString();
+    String docID;
+    List<QueryDocumentSnapshot> bigList = [];
+    for (int i = 1; i < 6; i++) {
+      QuerySnapshot games = await gamesCollection
+          .where('gameID',
+              isEqualTo: year.toString() +
+                  ' ' +
+                  month.toString() +
+                  ' ' +
+                  day.toString() +
+                  ' G' +
+                  i.toString())
+          .get();
+      List<QueryDocumentSnapshot> gamesList = games.docs.toList();
+      bigList = bigList + gamesList;
+    }
+    if (bigList != null) {
+      docID = year.toString() +
+          ' ' +
+          month.toString() +
+          ' ' +
+          day.toString() +
+          ' G' +
+          (bigList.length + 1).toString();
+    } else {
+      docID = year.toString() +
+          ' ' +
+          month.toString() +
+          ' ' +
+          day.toString() +
+          ' G1';
+    }
     return await gamesCollection.doc(docID).set({
       'gameID': docID,
       'team1': team1,
@@ -383,5 +367,86 @@ class DatabaseService {
         .collection('prizes')
         .doc(date)
         .set({'wins': wins, 'delivered': false});
+  }
+
+  Future<List<Game>> getGamesOnDay(String date) async {
+    if (date == '') return [];
+    List<Game> bigGameList = [];
+    for (int i = 1; i < 6; i++) {
+      QuerySnapshot snap = await gamesCollection
+          .where("gameID", isEqualTo: date + ' G' + i.toString())
+          .get();
+      List<Game> gameList = snap.docs.map(_gameFromSnapshot).toList();
+      bigGameList = bigGameList + gameList;
+    }
+    return bigGameList;
+  }
+
+  Future<List<Game>> showUnfinishedGames() async {
+    QuerySnapshot snap =
+        await gamesCollection.where('winner', isEqualTo: 0).get();
+    return snap.docs.map(_gameFromSnapshot).toList();
+  }
+
+  Future<String> _uidFromUsername(String username) async {
+    QuerySnapshot snap =
+        await userDataCollection.where('username', isEqualTo: username).get();
+    List<QueryDocumentSnapshot> list = snap.docs.toList();
+    if (list.length != 0) {
+      QueryDocumentSnapshot doc = list[0];
+      return doc.data()['uid'];
+    } else
+      return '';
+  }
+
+  Future addFriend(String userUid, String friendUsername) async {
+    String friendUid = await _uidFromUsername(friendUsername);
+    userDataCollection
+        .doc(userUid)
+        .collection('friends')
+        .doc(friendUid)
+        .set({'uid': friendUid, 'username': friendUsername});
+  }
+
+  Future removeFriend(String userUid, String friendUsername) async {
+    String friendUid = await _uidFromUsername(friendUsername);
+    userDataCollection
+        .doc(userUid)
+        .collection('friends')
+        .doc(friendUid)
+        .update({'uid': '', 'username': ''});
+  }
+
+  Future<Pick> pickFromUsername(String username) async {
+    QuerySnapshot snap = await userDataCollection
+        .doc(await _uidFromUsername(username))
+        .collection('picks')
+        .get();
+    List<Pick> list = _pickSnapshotsToList(snap);
+    return list[list.length - 1];
+  }
+
+  Stream<List<String>> get friends {
+    return userDataCollection
+        .doc(uid)
+        .collection('friends')
+        .where('username', isNotEqualTo: '')
+        .snapshots()
+        .map<List<String>>(_usernameFromSnapshot);
+  }
+
+  List<String> _usernameFromSnapshot(QuerySnapshot snap) {
+    return snap.docs.map<String>((doc) {
+      return doc.data()['username'];
+    }).toList();
+  }
+
+  Future<String> streakFromUsername(String username) async {
+    String friendUid = await _uidFromUsername(username);
+    if (friendUid != '') {
+      DocumentSnapshot snap = await userDataCollection.doc(friendUid).get();
+      return snap.data()['streak'].toString();
+    } else
+      return '';
   }
 }

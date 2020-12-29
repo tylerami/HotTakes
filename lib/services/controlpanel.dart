@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hottakes1/services/database.dart';
 import 'package:hottakes1/services/gamemanager.dart';
+import 'package:hottakes1/services/gameviewer.dart';
+import 'package:hottakes1/services/unfinishedgames.dart';
 
 class ControlPanel extends StatefulWidget {
   @override
@@ -30,6 +32,9 @@ class _ControlPanelState extends State<ControlPanel> {
 
   String success1 = '';
   String success2 = '';
+
+  @override
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -134,20 +139,18 @@ class _ControlPanelState extends State<ControlPanel> {
                                 setState(() => subtitle2 = val);
                               }),
                           TextFormField(
-                              validator: (val) =>
-                                  odds2.isEmpty && odds1.isNotEmpty
-                                      ? "Other score is empty"
-                                      : null,
+                              validator: (val) => odds2.isEmpty && odds1.isEmpty
+                                  ? "Enter the odds for at least one game"
+                                  : null,
                               decoration:
                                   InputDecoration(hintText: 'Team 1 odds'),
                               onChanged: (val) {
                                 setState(() => odds1 = val);
                               }),
                           TextFormField(
-                              validator: (val) =>
-                                  odds1.isEmpty && odds2.isNotEmpty
-                                      ? "Other score is empty"
-                                      : null,
+                              validator: (val) => odds2.isEmpty && odds1.isEmpty
+                                  ? "Enter the odds for at least one game"
+                                  : null,
                               decoration:
                                   InputDecoration(hintText: 'Team 2 odds'),
                               onChanged: (val) {
@@ -177,14 +180,13 @@ class _ControlPanelState extends State<ControlPanel> {
                                           odds2,
                                           subtitle1,
                                           subtitle2);
-                                  if (result != null) {
+                                  if (result == null) {
                                     setState(() {
                                       success1 = "Successfully submitted game";
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 20000),
-                                        () {
+                                        const Duration(milliseconds: 2000), () {
                                       setState(() {
                                         success1 = '';
                                       });
@@ -192,12 +194,12 @@ class _ControlPanelState extends State<ControlPanel> {
                                   }
                                 }
                               }),
-                          Text(success1,
-                              style: GoogleFonts.roboto(
-                                  color: Colors.green, fontSize: 12))
                         ],
                       ),
                     ),
+                    Text(success1,
+                        style: GoogleFonts.roboto(
+                            color: Colors.green, fontSize: 12)),
                     Form(
                       key: _gameWinnerFormKey,
                       child: Column(
@@ -257,15 +259,14 @@ class _ControlPanelState extends State<ControlPanel> {
                                   dynamic result = await DatabaseService()
                                       .setGameWinner(gameID, team1score,
                                           team2score, int.parse(winner));
-                                  if (result != null) {
+                                  if (result == null) {
                                     setState(() {
                                       success2 =
                                           "Successfully submitted winner";
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 20000),
-                                        () {
+                                        const Duration(milliseconds: 2000), () {
                                       setState(() {
                                         success2 = '';
                                       });
@@ -273,13 +274,13 @@ class _ControlPanelState extends State<ControlPanel> {
                                   }
                                 }
                               }),
-                          Text(success2,
-                              style: GoogleFonts.roboto(
-                                  color: Colors.green, fontSize: 12))
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    Text(success2,
+                        style: GoogleFonts.roboto(
+                            color: Colors.green, fontSize: 12)),
+                    SizedBox(height: 8),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).pop();
@@ -292,6 +293,62 @@ class _ControlPanelState extends State<ControlPanel> {
                               color: Color(0xff2F2F2F)),
                           child: Icon(Icons.arrow_back_ios_rounded,
                               color: Colors.white.withOpacity(.6), size: 25)),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => GameViewer()));
+                          },
+                          child: Container(
+                              width: 130,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xff2F2F2F)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Uploaded Games',
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 12)),
+                                  Icon(Icons.arrow_forward_ios_rounded,
+                                      color: Colors.white.withOpacity(.6),
+                                      size: 12),
+                                ],
+                              )),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => UnfinishedGames()));
+                          },
+                          child: Container(
+                              width: 130,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xff2F2F2F)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Unfinished Games',
+                                      style: TextStyle(
+                                          color: Colors.white70, fontSize: 12)),
+                                  Icon(Icons.arrow_forward_ios_rounded,
+                                      color: Colors.white.withOpacity(.6),
+                                      size: 12),
+                                ],
+                              )),
+                        )
+                      ],
                     )
                   ],
                 )),
