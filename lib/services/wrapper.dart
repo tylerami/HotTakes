@@ -19,6 +19,7 @@ class Wrapper extends StatelessWidget {
       DatabaseService().setGameToday(
           2, 'hroc', 'buck', 'T:233.0', '-10.0', '0-1', '0-1', '');
       DatabaseService().givePick(user.uid);
+
       return Dashboard();
     }
   }

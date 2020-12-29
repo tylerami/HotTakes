@@ -16,6 +16,8 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('userData');
   final CollectionReference userDeliveryCollection =
       FirebaseFirestore.instance.collection('userDelivery');
+  final CollectionReference prizeCollection =
+      FirebaseFirestore.instance.collection('prizes');
 
   Future updateUserData(String uid, String username, String league1,
       String league2, int streak, int picksRemaining) async {
@@ -388,9 +390,9 @@ class DatabaseService {
   }
 
   Future submitPrizeClaim(String uid, String date, int wins) async {
-    return await userDeliveryCollection
+    return await prizeCollection
         .doc(uid)
-        .collection('prizes')
+        .collection('prizeClaims')
         .doc(date)
         .set({'wins': wins, 'delivered': false});
   }
@@ -444,12 +446,15 @@ class DatabaseService {
   }
 
   Future<Pick> pickFromUsername(String username) async {
-    QuerySnapshot snap = await userDataCollection
-        .doc(await _uidFromUsername(username))
-        .collection('picks')
-        .get();
-    List<Pick> list = _pickSnapshotsToList(snap);
-    return list[list.length - 1];
+    if (await isUsernameTaken(username)) {
+      QuerySnapshot snap = await userDataCollection
+          .doc(await _uidFromUsername(username))
+          .collection('picks')
+          .get();
+      List<Pick> list = _pickSnapshotsToList(snap);
+      return list[list.length - 1];
+    } else
+      return null;
   }
 
   Stream<List<String>> get friends {

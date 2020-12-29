@@ -177,30 +177,33 @@ class _PrizesState extends State<Prizes> {
           final userData = Provider.of<UserData>(context);
           if (userData != null) {
             return Center(
-                child: ListView(
-              shrinkWrap: true,
-              children: [
-                PrizeTier(
-                    image: 'assets/merch.png',
-                    title: 'HOT TAKES\nMUSCLE TEE',
-                    wins: 4,
-                    userWins: userData.streak),
-                PrizeTier(
-                    image: 'assets/beercard.png',
-                    title: "\$100 BEERSTORE\nGIFTCARD",
-                    wins: 10,
-                    userWins: userData.streak),
-                PrizeTier(
-                    image: 'assets/tickets.png',
-                    title: 'SPORTS TICKETS \n(\$600 VALUE)',
-                    wins: 15,
-                    userWins: userData.streak),
-                PrizeTier(
-                    image: 'assets/cash.png',
-                    title: '\$10,000 CASH\n     ',
-                    wins: 20,
-                    userWins: userData.streak),
-              ],
+                child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  PrizeTier(
+                      image: 'assets/merch.png',
+                      title: 'HOT TAKES\nMUSCLE TEE',
+                      wins: 4,
+                      userWins: userData.streak),
+                  PrizeTier(
+                      image: 'assets/beercard.png',
+                      title: "\$100 BEERSTORE\nGIFTCARD",
+                      wins: 10,
+                      userWins: userData.streak),
+                  PrizeTier(
+                      image: 'assets/tickets.png',
+                      title: 'SPORTS TICKETS \n(\$600 VALUE)',
+                      wins: 15,
+                      userWins: userData.streak),
+                  PrizeTier(
+                      image: 'assets/cash.png',
+                      title: '\$10,000 CASH\n     ',
+                      wins: 20,
+                      userWins: userData.streak),
+                ],
+              ),
             ));
           } else
             return Container();

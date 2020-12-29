@@ -232,7 +232,7 @@ class _LoginState extends State<Login> {
                           style: GoogleFonts.montserrat(
                               textStyle: TextStyle(
                                   color: Colors.red,
-                                  fontSize: 10,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w400))),
                       Padding(
                           padding: const EdgeInsets.only(top: 10),

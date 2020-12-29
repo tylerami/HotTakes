@@ -188,7 +188,7 @@ class _ControlPanelState extends State<ControlPanel> {
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 2000), () {
+                                        const Duration(milliseconds: 200), () {
                                       setState(() {
                                         success1 = '';
                                       });
@@ -268,7 +268,7 @@ class _ControlPanelState extends State<ControlPanel> {
                                     });
 
                                     Future.delayed(
-                                        const Duration(milliseconds: 2000), () {
+                                        const Duration(milliseconds: 200), () {
                                       setState(() {
                                         success2 = '';
                                       });

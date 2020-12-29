@@ -42,12 +42,17 @@ class _TakesListState extends State<TakesList> {
                     int counter = 0;
                     int i = 1;
                     bool on = true;
-                    if (cardList[cardList.length - 1].pickedRight == 1) {
+                    if (TakeCard()
+                            .dateFromTakeCard(cardList[cardList.length - 1]) ==
+                        userData.streakResetDate)
+                      on = false;
+                    else if (cardList[cardList.length - 1].pickedRight == 1) {
                       streakList.add(cardList[cardList.length - 1]);
                       counter++;
                     }
                     if (cardList[cardList.length - 1].pickedRight == 2)
                       on = false;
+
                     while (on && i <= cardList.length - 1) {
                       if (TakeCard().dateFromTakeCard(
                               cardList[cardList.length - 1 - i]) ==
@@ -63,9 +68,9 @@ class _TakesListState extends State<TakesList> {
                       }
                     }
                     if (streakList.length > 2) {
-                      for (i = 0; i <= counter - 1; i++) {
+                      for (i = 1; i < counter; i++) {
                         if (TakeCard().pickedOnConsecutiveDays(
-                                streakList[i], streakList[i + 1]) ==
+                                streakList[i - 1], streakList[i]) ==
                             false) counter = 0;
                       }
                     }
