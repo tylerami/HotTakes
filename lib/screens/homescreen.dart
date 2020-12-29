@@ -254,7 +254,10 @@ class _HomescreenState extends State<Homescreen> {
                                 city: Teams().cityFromInitials(game1.team1),
                                 team: Teams().teamFromInitials(game1.team1),
                                 subtitle: game1.subtitle1,
-                                logo: Teams().logoFromInitials(game1.team1),
+                                logo:
+                                    Teams().logoFromInitials(game1.team1) != ''
+                                        ? Teams().logoFromInitials(game1.team1)
+                                        : null,
                                 odds: game1.odds1,
                                 selected: this._team1status ? true : false,
                                 submitted:
@@ -273,7 +276,10 @@ class _HomescreenState extends State<Homescreen> {
                                 city: Teams().cityFromInitials(game1.team2),
                                 team: Teams().teamFromInitials(game1.team2),
                                 subtitle: game1.subtitle2,
-                                logo: Teams().logoFromInitials(game1.team2),
+                                logo:
+                                    Teams().logoFromInitials(game1.team2) != ''
+                                        ? Teams().logoFromInitials(game1.team2)
+                                        : null,
                                 odds: game1.odds2,
                                 selected: this._team2status ? true : false,
                                 submitted:
@@ -296,7 +302,10 @@ class _HomescreenState extends State<Homescreen> {
                                 city: Teams().cityFromInitials(game2.team1),
                                 team: Teams().teamFromInitials(game2.team1),
                                 subtitle: game2.subtitle1,
-                                logo: Teams().logoFromInitials(game2.team1),
+                                logo:
+                                    Teams().logoFromInitials(game2.team1) == ''
+                                        ? Teams().logoFromInitials(game2.team1)
+                                        : null,
                                 odds: game2.odds1,
                                 selected: this._team3status ? true : false,
                                 submitted:
@@ -315,7 +324,9 @@ class _HomescreenState extends State<Homescreen> {
                               city: Teams().cityFromInitials(game2.team2),
                               team: Teams().teamFromInitials(game2.team2),
                               subtitle: game2.subtitle2,
-                              logo: Teams().logoFromInitials(game2.team2),
+                              logo: Teams().logoFromInitials(game2.team2) == ''
+                                  ? Teams().logoFromInitials(game2.team2)
+                                  : null,
                               odds: game2.odds2,
                               selected: this._team4status ? true : false,
                               submitted: this._team4submission ? true : false,

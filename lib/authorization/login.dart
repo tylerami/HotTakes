@@ -17,6 +17,9 @@ class _LoginState extends State<Login> {
   final AuthService _auth = AuthService();
   String error = '';
   final _formKey = GlobalKey<FormState>();
+  bool press = false;
+  bool obscure = true;
+  IconData eyecon = CupertinoIcons.eye_slash;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +59,7 @@ class _LoginState extends State<Login> {
                         child: Column(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                              padding: const EdgeInsets.fromLTRB(30, 30, 30, 5),
                               child: TextFormField(
                                 validator: (val) => val.isEmpty
                                     ? "Email field is empty, try again"
@@ -66,11 +68,31 @@ class _LoginState extends State<Login> {
                                     textStyle: TextStyle(
                                         fontSize: 18, color: Colors.white)),
                                 decoration: InputDecoration(
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          color:
+                                              CupertinoColors.destructiveRed)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                          color: CupertinoColors.destructiveRed
+                                              .withOpacity(0.8))),
+                                  isDense: false,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Colors.white70)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                          color: CupertinoColors.activeOrange,
+                                          width: 2)),
                                   hintText: "Email",
                                   hintStyle: GoogleFonts.montserrat(
                                       textStyle: TextStyle(
-                                          fontSize: 18, color: Colors.white)),
-                                  icon: new Icon(Icons.security,
+                                          fontSize: 18, color: Colors.white70)),
+                                  prefixIcon: new Icon(Icons.person,
                                       color: Colors.white),
                                 ),
                                 onChanged: (val) {
@@ -80,7 +102,7 @@ class _LoginState extends State<Login> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                                  const EdgeInsets.fromLTRB(30, 30, 30, 20),
                               child: TextFormField(
                                 validator: (val) => val.isEmpty
                                     ? "Password field is empty, try again"
@@ -88,36 +110,94 @@ class _LoginState extends State<Login> {
                                 style: GoogleFonts.montserrat(
                                     textStyle: TextStyle(
                                         fontSize: 18, color: Colors.white)),
-                                obscureText: true,
+                                obscureText: obscure,
                                 decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: GoogleFonts.montserrat(
-                                      textStyle: TextStyle(
-                                          fontSize: 18, color: Colors.white)),
-                                  icon: new Icon(Icons.security,
-                                      color: Colors.white),
-                                ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                            color: CupertinoColors
+                                                .destructiveRed)),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color: CupertinoColors
+                                                .destructiveRed
+                                                .withOpacity(0.8))),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide:
+                                            BorderSide(color: Colors.white70)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                            color: CupertinoColors.activeOrange,
+                                            width: 2)),
+                                    hintText: "Password",
+                                    hintStyle: GoogleFonts.montserrat(
+                                        textStyle: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white70)),
+                                    prefixIcon: new Icon(Icons.security,
+                                        color: Colors.white),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(eyecon, color: Colors.white70),
+                                      onPressed: () {
+                                        setState(() {
+                                          obscure
+                                              ? obscure = false
+                                              : obscure = true;
+                                          obscure
+                                              ? eyecon =
+                                                  CupertinoIcons.eye_slash
+                                              : eyecon = CupertinoIcons.eye;
+                                        });
+                                      },
+                                    )),
                                 onChanged: (val) {
                                   setState(() => password = val);
                                 },
                               ),
                             ),
+                            SizedBox(height: 20),
                             FlatButton(
                                 color: Colors.black.withOpacity(0.00),
                                 onPressed: () async {
+                                  setState(() {
+                                    press = true;
+                                  });
                                   if (_formKey.currentState.validate()) {
                                     dynamic result =
                                         await _auth.signIn(email, password);
                                     if (result == null) {
-                                      setState(() => error =
-                                          'Please enter a valid email and password ');
+                                      setState(() {
+                                        error =
+                                            'Please enter a valid email and password ';
+                                        press = false;
+                                      });
+                                      press = false;
                                     }
+                                  } else {
+                                    setState(() {
+                                      press = false;
+                                    });
                                   }
                                 },
                                 child: Container(
                                     height: 58,
                                     width: 260,
                                     decoration: BoxDecoration(
+                                      boxShadow: [
+                                        press
+                                            ? BoxShadow(
+                                                color: CupertinoColors
+                                                    .activeOrange,
+                                                spreadRadius: 2,
+                                                blurRadius: 10)
+                                            : BoxShadow(
+                                                color: Colors.red[500]
+                                                    .withOpacity(.80),
+                                                blurRadius: 10)
+                                      ],
                                       borderRadius: BorderRadius.circular(20.0),
                                       gradient: LinearGradient(
                                         begin: Alignment.topCenter,
@@ -155,7 +235,7 @@ class _LoginState extends State<Login> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.w400))),
                       Padding(
-                          padding: const EdgeInsets.only(top: 20),
+                          padding: const EdgeInsets.only(top: 10),
                           child: FlatButton(
                               color: Colors.black.withOpacity(0.00),
                               onPressed: () {
@@ -168,6 +248,11 @@ class _LoginState extends State<Login> {
                                   height: 58,
                                   width: 260,
                                   decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(.60),
+                                          blurRadius: 10)
+                                    ],
                                     borderRadius: BorderRadius.circular(20.0),
                                     gradient: LinearGradient(
                                       begin: Alignment.topCenter,
@@ -196,31 +281,63 @@ class _LoginState extends State<Login> {
                                     ],
                                   )))),
                       TextButton(
-                          onPressed: email == ''
+                          onPressed: email.isEmpty
                               ? () {
                                   setState(() {
                                     error = 'Please enter a valid email';
                                   });
                                 }
                               : () {
-                                  AuthService().resetPassword(email);
                                   showCupertinoDialog(
                                       context: context,
                                       builder: (context) {
                                         return CupertinoAlertDialog(
-                                          title: Text('Success'),
+                                          title: Text('Password Reset'),
                                           content: Text(
-                                              'An email containing a password reset link has been sent to ' +
-                                                  email),
-                                          actions: <Widget>[
+                                              'Are you sure you want to send a password reset email?'),
+                                          actions: [
+                                            FlatButton(
+                                                onPressed: () {
+                                                  AuthService()
+                                                      .resetPassword(email);
+                                                  Navigator.of(context).pop();
+                                                  showCupertinoDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return CupertinoAlertDialog(
+                                                          title:
+                                                              Text('Success'),
+                                                          content: Text(
+                                                              'A link to reset your password has been sent to ' +
+                                                                  email),
+                                                          actions: [
+                                                            FlatButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                },
+                                                                child: Text(
+                                                                    'Ok',
+                                                                    style: TextStyle(
+                                                                        color: CupertinoColors
+                                                                            .activeBlue))),
+                                                          ],
+                                                        );
+                                                      });
+                                                },
+                                                child: Text('Yes',
+                                                    style: TextStyle(
+                                                        color: CupertinoColors
+                                                            .activeBlue))),
                                             FlatButton(
                                                 onPressed: () {
                                                   Navigator.of(context).pop();
                                                 },
-                                                child: Text('Ok',
+                                                child: Text('No',
                                                     style: TextStyle(
                                                         color: CupertinoColors
-                                                            .activeBlue)))
+                                                            .destructiveRed)))
                                           ],
                                         );
                                       });

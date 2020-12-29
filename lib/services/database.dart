@@ -19,6 +19,11 @@ class DatabaseService {
 
   Future updateUserData(String uid, String username, String league1,
       String league2, int streak, int picksRemaining) async {
+    userDataCollection
+        .doc(uid)
+        .collection('friends')
+        .doc('initilize')
+        .set({'date': Gamemanager().getDate()});
     return await userDataCollection.doc(uid).set({
       'uid': uid,
       'username': username,
@@ -170,7 +175,8 @@ class DatabaseService {
       String odds1,
       String odds2,
       String subtitle1,
-      String subtitle2) async {
+      String subtitle2,
+      String logoOverride) async {
     String docID = year.toString() +
         ' ' +
         month.toString() +
@@ -188,12 +194,22 @@ class DatabaseService {
       'subtitle2': subtitle2,
       'winner': 0,
       'team1score': '',
-      'team2score': ''
+      'team2score': '',
+      'logoOverride': logoOverride
     });
   }
 
-  Future setGameAuto(int year, int month, int day, String team1, String team2,
-      String odds1, String odds2, String subtitle1, String subtitle2) async {
+  Future setGameAuto(
+      int year,
+      int month,
+      int day,
+      String team1,
+      String team2,
+      String odds1,
+      String odds2,
+      String subtitle1,
+      String subtitle2,
+      String logoOverride) async {
     String docID;
     List<QueryDocumentSnapshot> bigList = [];
     for (int i = 1; i < 6; i++) {
@@ -236,12 +252,20 @@ class DatabaseService {
       'subtitle2': subtitle2,
       'winner': 0,
       'team1score': '',
-      'team2score': ''
+      'team2score': '',
+      'logoOverride': logoOverride
     });
   }
 
-  Future setGameToday(int game, String team1, String team2, String odds1,
-      String odds2, String subtitle1, String subtitle2) async {
+  Future setGameToday(
+      int game,
+      String team1,
+      String team2,
+      String odds1,
+      String odds2,
+      String subtitle1,
+      String subtitle2,
+      String logoOverride) async {
     String docID = Gamemanager().getGameID(game);
     return await gamesCollection.doc(docID).set({
       'gameID': docID,
@@ -253,7 +277,8 @@ class DatabaseService {
       'subtitle2': subtitle2,
       'winner': 0,
       'team1score': '',
-      'team2score': ''
+      'team2score': '',
+      'logoOverride': logoOverride
     });
   }
 
@@ -283,7 +308,8 @@ class DatabaseService {
         subtitle2: doc.data()['subtitle2'],
         team1score: doc.data()['team1score'],
         team2score: doc.data()['team2score'],
-        winner: doc.data()['winner']);
+        winner: doc.data()['winner'],
+        logoOverride: doc.data()['logoOverride']);
   }
 
   Future setLeague1(String uid, int index) async {
@@ -414,7 +440,7 @@ class DatabaseService {
         .doc(userUid)
         .collection('friends')
         .doc(friendUid)
-        .update({'uid': '', 'username': ''});
+        .delete();
   }
 
   Future<Pick> pickFromUsername(String username) async {

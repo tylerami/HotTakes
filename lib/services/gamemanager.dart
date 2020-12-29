@@ -35,6 +35,7 @@ class Game {
   int winner;
   String team1score;
   String team2score;
+  String logoOverride;
 
   Game(
       {this.gameID,
@@ -46,7 +47,8 @@ class Game {
       this.subtitle2,
       this.team1score,
       this.team2score,
-      this.winner});
+      this.winner,
+      this.logoOverride});
 }
 
 class GamePair {

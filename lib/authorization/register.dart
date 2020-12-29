@@ -12,12 +12,15 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool obscure = true;
+  IconData eyecon = CupertinoIcons.eye_slash;
   String email = '';
   String username = '';
   String password = '';
   String error = '';
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  bool press = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,7 @@ class _RegisterState extends State<Register> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 150, 0, 30),
+                            padding: const EdgeInsets.fromLTRB(0, 120, 0, 20),
                             child: Image.asset('assets/logohor.png'),
                           ),
                           Form(
@@ -59,7 +62,7 @@ class _RegisterState extends State<Register> {
                               children: [
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                                      const EdgeInsets.fromLTRB(20, 30, 30, 10),
                                   child: TextFormField(
                                     validator: (val) => val.isEmpty
                                         ? "Email field is empty, try again"
@@ -68,12 +71,37 @@ class _RegisterState extends State<Register> {
                                         textStyle: TextStyle(
                                             fontSize: 18, color: Colors.white)),
                                     decoration: InputDecoration(
+                                      focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                              color: CupertinoColors
+                                                  .destructiveRed)),
+                                      errorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color: CupertinoColors
+                                                  .destructiveRed
+                                                  .withOpacity(0.8))),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color: Colors.white70)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  CupertinoColors.activeOrange,
+                                              width: 2)),
                                       hintText: "Email",
                                       hintStyle: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.white)),
-                                      icon: new Icon(Icons.security,
+                                              color: Colors.white70)),
+                                      prefixIcon: new Icon(Icons.security,
                                           color: Colors.white),
                                     ),
                                     onChanged: (val) {
@@ -83,7 +111,7 @@ class _RegisterState extends State<Register> {
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                                      const EdgeInsets.fromLTRB(20, 30, 30, 10),
                                   child: TextFormField(
                                     validator: (val) => val.isEmpty
                                         ? "Username field is empty, try again"
@@ -92,12 +120,37 @@ class _RegisterState extends State<Register> {
                                         textStyle: TextStyle(
                                             fontSize: 18, color: Colors.white)),
                                     decoration: InputDecoration(
+                                      focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                              color: CupertinoColors
+                                                  .destructiveRed)),
+                                      errorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color: CupertinoColors
+                                                  .destructiveRed
+                                                  .withOpacity(0.8))),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color: Colors.white70)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  CupertinoColors.activeOrange,
+                                              width: 2)),
                                       hintText: "Username",
                                       hintStyle: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               fontSize: 18,
-                                              color: Colors.white)),
-                                      icon: new Icon(Icons.security,
+                                              color: Colors.white70)),
+                                      prefixIcon: new Icon(Icons.person,
                                           color: Colors.white),
                                     ),
                                     onChanged: (val) {
@@ -107,7 +160,7 @@ class _RegisterState extends State<Register> {
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                                      const EdgeInsets.fromLTRB(20, 30, 30, 10),
                                   child: TextFormField(
                                     validator: (val) => val.isEmpty
                                         ? "Password field is empty, try again"
@@ -115,30 +168,71 @@ class _RegisterState extends State<Register> {
                                     style: GoogleFonts.montserrat(
                                         textStyle: TextStyle(
                                             fontSize: 18, color: Colors.white)),
-                                    obscureText: true,
+                                    obscureText: obscure,
                                     decoration: InputDecoration(
-                                      hintText: "Password",
-                                      hintStyle: GoogleFonts.montserrat(
-                                          textStyle: TextStyle(
-                                              fontSize: 18,
-                                              color: Colors.white)),
-                                      icon: new Icon(Icons.security,
-                                          color: Colors.white),
-                                    ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide(
+                                                color: CupertinoColors
+                                                    .destructiveRed)),
+                                        errorBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                                color: CupertinoColors
+                                                    .destructiveRed
+                                                    .withOpacity(0.8))),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                                color: Colors.white70)),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide(
+                                                color: CupertinoColors
+                                                    .activeOrange,
+                                                width: 2)),
+                                        hintText: "Password",
+                                        hintStyle:
+                                            GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 18, color: Colors.white70)),
+                                        prefixIcon: new Icon(Icons.security, color: Colors.white),
+                                        suffixIcon: IconButton(
+                                          icon: Icon(eyecon,
+                                              color: Colors.white70),
+                                          onPressed: () {
+                                            setState(() {
+                                              obscure
+                                                  ? obscure = false
+                                                  : obscure = true;
+                                              obscure
+                                                  ? eyecon =
+                                                      CupertinoIcons.eye_slash
+                                                  : eyecon = CupertinoIcons.eye;
+                                            });
+                                          },
+                                        )),
                                     onChanged: (val) {
                                       setState(() => password = val);
                                     },
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(top: 40),
                                   child: FlatButton(
                                       color: Colors.black.withOpacity(0.00),
                                       onPressed: () async {
+                                        setState(() {
+                                          press = true;
+                                        });
                                         if (await DatabaseService()
                                             .isUsernameTaken(username)) {
-                                          setState(() =>
-                                              error = 'Username is taken');
+                                          setState(() {
+                                            error = 'Username is taken';
+                                            press = false;
+                                          });
                                         } else if (_formKey.currentState
                                             .validate()) {
                                           dynamic result = await _auth.register(
@@ -149,12 +243,28 @@ class _RegisterState extends State<Register> {
                                           } else {
                                             Navigator.of(context).pop();
                                           }
+                                        } else {
+                                          setState(() {
+                                            press = false;
+                                          });
                                         }
                                       },
                                       child: Container(
                                           height: 58,
                                           width: 260,
                                           decoration: BoxDecoration(
+                                            boxShadow: [
+                                              press
+                                                  ? BoxShadow(
+                                                      color: CupertinoColors
+                                                          .activeOrange,
+                                                      spreadRadius: 2,
+                                                      blurRadius: 10)
+                                                  : BoxShadow(
+                                                      color: Colors.red[500]
+                                                          .withOpacity(.80),
+                                                      blurRadius: 10)
+                                            ],
                                             borderRadius:
                                                 BorderRadius.circular(20.0),
                                             gradient: LinearGradient(
@@ -198,7 +308,7 @@ class _RegisterState extends State<Register> {
                                       fontSize: 10,
                                       fontWeight: FontWeight.w400))),
                           Padding(
-                              padding: const EdgeInsets.only(top: 20),
+                              padding: const EdgeInsets.only(top: 10),
                               child: FlatButton(
                                   color: Colors.black.withOpacity(0.00),
                                   onPressed: () {
@@ -208,6 +318,12 @@ class _RegisterState extends State<Register> {
                                       height: 58,
                                       width: 260,
                                       decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(.60),
+                                              blurRadius: 10)
+                                        ],
                                         borderRadius:
                                             BorderRadius.circular(20.0),
                                         gradient: LinearGradient(

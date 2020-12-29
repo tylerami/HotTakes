@@ -92,7 +92,9 @@ class GameButton extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Image.asset(this.logo, height: 30),
+                            this.logo != null
+                                ? Image.asset(this.logo, height: 30)
+                                : Container(),
                           ],
                         ),
                         Text(this.odds,
@@ -164,7 +166,11 @@ class GameButton extends StatelessWidget {
                         SizedBox(height: 3),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [Image.asset(this.logo, height: 30)]),
+                            children: [
+                              this.logo != null
+                                  ? Image.asset(this.logo, height: 30)
+                                  : Container()
+                            ]),
                         Text(this.odds,
                             style: GoogleFonts.oswald(
                                 color: Color(0xff272727), //Color(0xff272727),

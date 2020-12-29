@@ -25,6 +25,7 @@ class _ControlPanelState extends State<ControlPanel> {
   String subtitle2 = '';
   String odds1 = '';
   String odds2 = '';
+  String logoOverride = '';
 
   String team1score = '';
   String team2score = '';
@@ -179,7 +180,8 @@ class _ControlPanelState extends State<ControlPanel> {
                                           odds1,
                                           odds2,
                                           subtitle1,
-                                          subtitle2);
+                                          subtitle2,
+                                          '');
                                   if (result == null) {
                                     setState(() {
                                       success1 = "Successfully submitted game";

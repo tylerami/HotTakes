@@ -13,7 +13,7 @@ class FriendsPage extends StatefulWidget {
 }
 
 class _FriendsPageState extends State<FriendsPage> {
-  FriendTile result;
+  Widget result;
   var _searchController = TextEditingController(text: '');
 
   Future<void> updateSearch(String val) async {
@@ -23,7 +23,7 @@ class _FriendsPageState extends State<FriendsPage> {
         result = FriendTile(username: val, areFriends: false, streak: streak);
       });
     } else {
-      result = null;
+      result = Container();
     }
   }
 
@@ -41,7 +41,7 @@ class _FriendsPageState extends State<FriendsPage> {
                 value: DatabaseService(uid: user.uid).friends,
                 builder: (context, child) {
                   final friends = Provider.of<List<String>>(context);
-                  if (friends == null) return Container();
+
                   return Localizations(
                       locale: const Locale('en', ''),
                       delegates: <LocalizationsDelegate<dynamic>>[
@@ -76,7 +76,7 @@ class _FriendsPageState extends State<FriendsPage> {
                                   border: InputBorder.none,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
-                                          Radius.circular(3.0)),
+                                          Radius.circular(10.0)),
                                       borderSide:
                                           BorderSide(color: Colors.blue)),
                                   filled: true,
@@ -90,31 +90,42 @@ class _FriendsPageState extends State<FriendsPage> {
                               ),
                               result ?? Container(),
                               SizedBox(height: 10),
-                              Expanded(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: friends.length,
-                                    itemBuilder: (context, index) {
-                                      return FutureProvider<String>.value(
-                                          value: DatabaseService()
-                                              .streakFromUsername(
-                                                  friends[index]),
-                                          builder: (context, child) {
-                                            final streak =
-                                                Provider.of<String>(context);
-                                            if (streak == null)
-                                              return Container();
-                                            else {
-                                              return Center(
-                                                child: FriendTile(
-                                                    username: friends[index],
-                                                    areFriends: true,
-                                                    streak: streak),
-                                              );
-                                            }
-                                          });
-                                    }),
-                              ),
+                              Expanded(child: Builder(builder: (context) {
+                                if (friends == null || friends.length == 0) {
+                                  return Center(
+                                    child: Padding(
+                                        padding: EdgeInsets.only(top: 30),
+                                        child: Text(
+                                            "YOU HAVE NO FRIENDS MY GUY",
+                                            style: GoogleFonts.oswald(
+                                                color: Colors.white70,
+                                                fontSize: 20))),
+                                  );
+                                } else
+                                  return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: friends.length,
+                                      itemBuilder: (context, index) {
+                                        return FutureProvider<String>.value(
+                                            value: DatabaseService()
+                                                .streakFromUsername(
+                                                    friends[index]),
+                                            builder: (context, child) {
+                                              final streak =
+                                                  Provider.of<String>(context);
+                                              if (streak == null)
+                                                return Container();
+                                              else {
+                                                return Center(
+                                                  child: FriendTile(
+                                                      username: friends[index],
+                                                      areFriends: true,
+                                                      streak: streak),
+                                                );
+                                              }
+                                            });
+                                      });
+                              })),
                             ],
                           ),
                         ),

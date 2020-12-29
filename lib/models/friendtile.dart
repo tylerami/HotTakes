@@ -78,7 +78,7 @@ class _FriendTileState extends State<FriendTile> {
                   height: 120,
                   width: 500,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                       color: Color(0xff141414),
                       boxShadow: [
                         BoxShadow(

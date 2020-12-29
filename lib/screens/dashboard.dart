@@ -31,6 +31,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: user.uid != null
             ? CupertinoTabScaffold(
                 backgroundColor: Color(0xff1A1A1A),

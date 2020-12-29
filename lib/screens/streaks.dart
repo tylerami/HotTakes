@@ -13,6 +13,10 @@ class Streaks extends StatelessWidget {
     final user = Provider.of<MyUser>(context);
 
     return StreamProvider<List<Pick>>.value(
-        value: DatabaseService(uid: user.uid).picks ?? [], child: TakesList());
+        value: DatabaseService(uid: user.uid).picks ?? [],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: TakesList(),
+        ));
   }
 }

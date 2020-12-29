@@ -71,28 +71,31 @@ class _TakesListState extends State<TakesList> {
                     }
                     DatabaseService().setUserStreak(user.uid, counter);
                   }
-                  return ListView.builder(
-                      itemCount: cardList.length,
-                      itemBuilder: (context, index) {
-                        if (games != null && picks != null) {
-                          return Container(
-                              child: cardList[cardList.length - 1 - index]);
-                        } else
-                          return Container(
-                              child: Padding(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Text(
-                              'You currently have no \n takes LOL cmon now',
+                  if (cardList == null || cardList.length == 0) {
+                    return Center(
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 30),
+                          child: Text("YOU HAVE NO TAKES MY GUY",
                               style: GoogleFonts.oswald(
-                                  color: Colors.white.withOpacity(.95),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18),
-                            ),
-                          ));
-                      });
+                                  color: Colors.white70, fontSize: 20))),
+                    );
+                  } else
+                    return ListView.builder(
+                        itemCount: cardList.length,
+                        itemBuilder: (context, index) {
+                          if (games != null && picks != null) {
+                            return Container(
+                                child: cardList[cardList.length - 1 - index]);
+                          } else
+                            return Container();
+                        });
                 });
           } else
-            return Container();
+            return Padding(
+                padding: EdgeInsets.only(top: 30),
+                child: Text("You have no takes my guy :(",
+                    style:
+                        GoogleFonts.roboto(color: Colors.white, fontSize: 20)));
         });
   }
 }
