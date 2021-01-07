@@ -1,5 +1,6 @@
 class Teams {
   String logoFromInitials(String initials) {
+    if (initials == '') return '';
     return 'assets/nba/' + initials + ".png";
   }
 
@@ -757,6 +758,8 @@ class Teams {
       case 'nat':
         return 'Washington';
         break;
+      default:
+        return initials;
     }
   }
 

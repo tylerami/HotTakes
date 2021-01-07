@@ -23,6 +23,8 @@ class TakeCard extends StatelessWidget {
         opponentTeam: Teams().teamFromInitials(opponentTeam),
         pickedTeamScore: pick.team == 1 ? game.team1score : game.team2score,
         opponentScore: pick.team == 1 ? game.team2score : game.team1score,
+        pickedOdds: pick.team == 1 ? game.odds1 : game.odds2,
+        opponentOdds: pick.team == 1 ? game.odds2 : game.odds1,
         pickedRight: game.winner == 0
             ? 0
             : game.winner == pick.team
@@ -89,13 +91,17 @@ class TakeCard extends StatelessWidget {
       this.opponentTeam,
       this.pickedTeamScore,
       this.opponentScore,
-      this.pickedRight});
+      this.pickedRight,
+      this.pickedOdds,
+      this.opponentOdds});
   final String date;
   final String pickedTeam;
   final String opponentTeam;
   final String pickedTeamScore;
   final String opponentScore;
   final int pickedRight;
+  final String pickedOdds;
+  final String opponentOdds;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +126,10 @@ class TakeCard extends StatelessWidget {
                                 fontSize: 14,
                                 color: Colors.grey[500],
                                 fontWeight: FontWeight.w500)),
-                        Text(pickedTeam,
+                        Text(
+                            pickedRight == 0
+                                ? pickedTeam
+                                : pickedTeam + ' (' + pickedOdds + ')',
                             style: GoogleFonts.oswald(
                                 fontSize: 24,
                                 color: pickedRight != 0
@@ -129,7 +138,10 @@ class TakeCard extends StatelessWidget {
                                         : Colors.white)
                                     : Colors.white,
                                 fontWeight: FontWeight.w700)),
-                        Text(opponentTeam,
+                        Text(
+                            pickedRight == 0
+                                ? opponentTeam
+                                : opponentTeam + ' (' + opponentOdds + ')',
                             style: GoogleFonts.oswald(
                                 fontSize: 24,
                                 color: pickedRight == 0

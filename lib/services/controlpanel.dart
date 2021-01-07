@@ -172,9 +172,9 @@ class _ControlPanelState extends State<ControlPanel> {
                                 if (_newGameFormKey.currentState.validate()) {
                                   dynamic result = await DatabaseService()
                                       .setGameAuto(
-                                          int.parse(yy),
-                                          int.parse(mm),
-                                          int.parse(dd),
+                                          yy,
+                                          mm,
+                                          dd,
                                           team1,
                                           team2,
                                           odds1,

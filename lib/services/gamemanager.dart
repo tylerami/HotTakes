@@ -2,25 +2,25 @@ class Gamemanager {
   String getGameID(int game) {
     final String year =
         DateTime.now().year.toString()[2] + DateTime.now().year.toString()[3];
-
-    return year +
-        ' ' +
-        DateTime.now().month.toString() +
-        ' ' +
-        DateTime.now().day.toString() +
-        ' G' +
-        game.toString();
+    final String month = DateTime.now().month.toString().length == 2
+        ? DateTime.now().month.toString()
+        : '0' + DateTime.now().month.toString();
+    final String day = DateTime.now().day.toString().length == 2
+        ? DateTime.now().day.toString()
+        : '0' + DateTime.now().day.toString();
+    return year + ' ' + month + ' ' + day + ' G' + game.toString();
   }
 
   String getDate() {
     final String year =
         DateTime.now().year.toString()[2] + DateTime.now().year.toString()[3];
-
-    return year +
-        ' ' +
-        DateTime.now().month.toString() +
-        ' ' +
-        DateTime.now().day.toString();
+    final String month = DateTime.now().month.toString().length == 2
+        ? DateTime.now().month.toString()
+        : '0' + DateTime.now().month.toString();
+    final String day = DateTime.now().day.toString().length == 2
+        ? DateTime.now().day.toString()
+        : '0' + DateTime.now().day.toString();
+    return year + ' ' + month + ' ' + day;
   }
 }
 

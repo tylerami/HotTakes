@@ -180,6 +180,7 @@ class _HomescreenState extends State<Homescreen> {
                       Game game1 = gamePair.game1;
                       Game game2 = gamePair.game2;
                       if (userData.picksRemaining >= 1) {}
+
                       return Center(
                           child: Column(children: [
                         SizedBox(height: 20),

@@ -202,9 +202,9 @@ class DatabaseService {
   }
 
   Future setGameAuto(
-      int year,
-      int month,
-      int day,
+      String year,
+      String month,
+      String day,
       String team1,
       String team2,
       String odds1,
@@ -217,13 +217,7 @@ class DatabaseService {
     for (int i = 1; i < 6; i++) {
       QuerySnapshot games = await gamesCollection
           .where('gameID',
-              isEqualTo: year.toString() +
-                  ' ' +
-                  month.toString() +
-                  ' ' +
-                  day.toString() +
-                  ' G' +
-                  i.toString())
+              isEqualTo: year + ' ' + month + ' ' + day + ' G' + i.toString())
           .get();
       List<QueryDocumentSnapshot> gamesList = games.docs.toList();
       bigList = bigList + gamesList;
