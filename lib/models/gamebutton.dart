@@ -167,7 +167,7 @@ class GameButton extends StatelessWidget {
                         Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              this.logo != null
+                              this.logo != null && this.logo != ''
                                   ? Image.asset(this.logo, height: 30)
                                   : Container()
                             ]),

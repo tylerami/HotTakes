@@ -128,7 +128,7 @@ class TakeCard extends StatelessWidget {
                                 fontWeight: FontWeight.w500)),
                         Text(
                             pickedRight == 0
-                                ? pickedTeam
+                                ? pickedTeam + ' (' + pickedOdds + ')'
                                 : pickedTeam + ' (' + pickedOdds + ')',
                             style: GoogleFonts.oswald(
                                 fontSize: 24,
@@ -140,7 +140,7 @@ class TakeCard extends StatelessWidget {
                                 fontWeight: FontWeight.w700)),
                         Text(
                             pickedRight == 0
-                                ? opponentTeam
+                                ? opponentTeam + ' (' + opponentOdds + ')'
                                 : opponentTeam + ' (' + opponentOdds + ')',
                             style: GoogleFonts.oswald(
                                 fontSize: 24,

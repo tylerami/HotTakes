@@ -14,11 +14,11 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Login();
     } else {
+      /*  DatabaseService()
+          .setGameToday(1, 'cow', 'jaz', 'T:224.5', '-4.5', '1-0', '0-1', '');
       DatabaseService()
-          .setGameToday(1, 'cli', 'mav', 'T:224.5', '-4.5', '1-0', '0-1', '');
-      DatabaseService()
-          .setGameToday(2, 'cli', 'mav', 'T:233.0', '-10.0', '0-1', '0-1', '');
-      DatabaseService().givePick(user.uid);
+          .setGameToday(2, 'rap', 'war', 'T:233.0', '-10.0', '0-1', '0-1', '');
+      DatabaseService().givePick(user.uid);*/
 
       return Dashboard();
     }

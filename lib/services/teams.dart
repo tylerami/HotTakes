@@ -97,7 +97,7 @@ class Teams {
         return "Wizards";
         break;
       // NFL
-      case 'car':
+      case 'acar':
         return 'Cardinals';
         break;
       case 'fal':
@@ -272,7 +272,7 @@ class Teams {
       case 'lig':
         return 'Lighting';
         break;
-      case 'lea':
+      case 'map':
         return 'Maple Leafs';
         break;
       case 'canu':
@@ -652,7 +652,7 @@ class Teams {
       case 'lig':
         return 'Tampa Bay';
         break;
-      case 'lea':
+      case 'map':
         return 'Toronto';
         break;
       case 'canu':

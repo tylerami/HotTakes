@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>363808171345-080384adlgei7brmt5j03hmc5t2at4l0.apps.googleusercontent.com</string>
+	<string>363808171345-5597n3bbnpfajah62fou6mcciksvmerd.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.363808171345-080384adlgei7brmt5j03hmc5t2at4l0</string>
+	<string>com.googleusercontent.apps.363808171345-5597n3bbnpfajah62fou6mcciksvmerd</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBosR7uH_UQYaSnKG-VGRHXc04wRMsxNr8</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sunsetboys.hottakes</string>
+	<string>com.hottakes.hottakes</string>
 	<key>PROJECT_ID</key>
 	<string>hot-takes-65ae9</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:363808171345:ios:43fed070d37b78c2531f70</string>
+	<string>1:363808171345:ios:bfcfe032e591ba88531f70</string>
 	<key>DATABASE_URL</key>
 	<string>https://hot-takes-65ae9.firebaseio.com</string>
 </dict>

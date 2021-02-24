@@ -474,4 +474,10 @@ class DatabaseService {
     } else
       return '';
   }
+
+  Future updateOdds(String gameID, String odds1, String odds2) async {
+    return await gamesCollection
+        .doc(gameID)
+        .update({'odds1': odds1, 'odds2': odds2});
+  }
 }
