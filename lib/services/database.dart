@@ -38,7 +38,8 @@ class DatabaseService {
       'game2': 2,
       'currentPick': 0,
       'notifications': true,
-      'streakresetdate': ''
+      'streakresetdate': '',
+      'isAdmin:': false
     });
   }
 
@@ -164,7 +165,8 @@ class DatabaseService {
         game2: doc.data()['game2'],
         currentPick: doc.data()['currentPick'],
         notifications: doc.data()['notifications'],
-        streakResetDate: doc.data()['streakresetdate']);
+        streakResetDate: doc.data()['streakresetdate'],
+        isAdmin: doc.data()['isAdmin']);
   }
 
   Future setGame(

@@ -189,7 +189,7 @@ class _SettingsState extends State<Settings> {
                             }),
                         Container(
                             child: uid != ''
-                                ? uid == 'ZFczk4pT3GMU6l8QzswZEC5DHTj2'
+                                ? userData.isAdmin == true
                                     ? CSLink(
                                         title: 'Admin Control',
                                         trailing:

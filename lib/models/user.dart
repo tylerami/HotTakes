@@ -1,6 +1,5 @@
 class MyUser {
   final String uid;
-
   MyUser({this.uid});
 }
 
@@ -17,6 +16,7 @@ class UserData {
   final int currentPick;
   final bool notifications;
   final String streakResetDate;
+  final bool isAdmin;
 
   UserData(
       {this.uid,
@@ -30,5 +30,6 @@ class UserData {
       this.game2,
       this.currentPick,
       this.notifications,
-      this.streakResetDate});
+      this.streakResetDate,
+      this.isAdmin});
 }
