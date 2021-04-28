@@ -39,7 +39,7 @@ class DatabaseService {
       'currentPick': 0,
       'notifications': true,
       'streakresetdate': '',
-      'isAdmin:': false
+      'isAdmin': false
     });
   }
 
